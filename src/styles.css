@@ -119,8 +119,7 @@ img, svg { max-width: 100%; }
 .lang-switch:hover { border-color: var(--ink); background: var(--paper); }
 
 /* Hero */
-.hero { padding-block: 36px 56px; border-bottom: var(--line); background:
-  radial-gradient(circle at 1px 1px, rgba(15, 37, 55, .13) 1px, transparent 0) 0 0 / 22px 22px, var(--canvas); }
+.hero { padding-block: 36px 56px; border-bottom: var(--line); background: var(--canvas); }
 .hero-grid { display: grid; gap: 36px; align-items: center; }
 .hero-place { display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px 6px 10px; border-radius: 14px; background: var(--paper); border: var(--line); font-weight: 650; font-size: .9375rem; }
 .hero-place .i { color: var(--sea); }
@@ -465,7 +464,7 @@ fieldset.field legend { padding: 0; margin-bottom: 6px; }
 .hero { position: relative; isolation: isolate; overflow: hidden; }
 
 @media (prefers-reduced-motion: no-preference) {
-  .hero-copy > * { animation: rise .7s var(--ease) both; }
+  .hero-copy > :not(.hero-cars) { animation: rise .7s var(--ease) both; }
   .hero-copy > :nth-child(1) { animation-delay: .05s; }
   .hero-copy > :nth-child(2) { animation-delay: .15s; }
   .hero-copy > :nth-child(3) { animation-delay: .27s; }
@@ -481,25 +480,34 @@ fieldset.field legend { padding: 0; margin-bottom: 6px; }
 @keyframes wipe { from { clip-path: inset(0 100% 0 0 round 22px); } to { clip-path: inset(0 0 0 0 round 22px); } }
 @keyframes settle { from { scale: 1.12; } to { scale: 1; } }
 
-/* Road strip under the hero: top-down cars driving both ways. */
-.road { position: relative; height: 64px; overflow: hidden; background: #22384A; border-bottom: var(--line);
-  background-image: linear-gradient(#2B4356 0 3px, transparent 3px calc(100% - 3px), #2B4356 calc(100% - 3px)); }
-.road-line { position: absolute; left: 0; right: 0; top: 50%; height: 4px; margin-top: -2px;
-  background: repeating-linear-gradient(90deg, var(--sun) 0 34px, transparent 34px 68px); }
-.road-car { position: absolute; left: 0; width: 64px; height: 30px; }
-.road-car svg { display: block; width: 100%; height: 100%; }
-.road-car-a { top: 35px; translate: 12vw 0; }
-.road-car-b { top: 0; top: 2px; translate: 58vw 0; rotate: 180deg; }
-.road-car-c { top: 35px; translate: 78vw 0; }
+/* Two cars drive into the hero and park: wheels spin, suspension settles, speed lines fade. */
+.hero-cars { display: flex; align-items: flex-end; gap: 18px; margin-top: 26px; }
+.hero-car { position: relative; display: block; width: min(46%, 200px); }
+.hero-car-art { display: block; width: 100%; height: auto; overflow: visible; }
+.hero-car .arch { fill: var(--canvas); }
+.hero-car .wheel, .hero-car .body { transform-box: fill-box; transform-origin: center; }
+.speed { position: absolute; left: -46px; top: 30%; display: grid; gap: 7px; opacity: 0; }
+.speed i { display: block; height: 3px; border-radius: 3px; background: var(--sea); opacity: .45; }
+.speed i:nth-child(1) { width: 34px; }
+.speed i:nth-child(2) { width: 22px; margin-left: 10px; }
+.speed i:nth-child(3) { width: 28px; margin-left: 4px; }
 @media (prefers-reduced-motion: no-preference) {
-  .road-line { animation: lane 1.1s linear infinite; }
-  .road-car-a { animation: drive-right 13s linear infinite; }
-  .road-car-c { animation: drive-right 13s linear -6.5s infinite; }
-  .road-car-b { animation: drive-left 9s linear -2s infinite; }
+  .hero-car { animation: drive-in 1.7s cubic-bezier(.16, .72, .22, 1) both; }
+  .hero-car .wheel { animation: spin 1.7s cubic-bezier(.16, .72, .22, 1) both; }
+  .hero-car .body { animation: settle-body .5s ease-out both; }
+  .hero-car .speed { animation: speed 1.7s ease-out both; }
+  .hero-car-a, .hero-car-a .wheel, .hero-car-a .speed { animation-delay: .9s; }
+  .hero-car-a .body { animation-delay: 2.45s; }
+  .hero-car-b, .hero-car-b .wheel, .hero-car-b .speed { animation-delay: 1.25s; }
+  .hero-car-b .body { animation-delay: 2.8s; }
+  .hero-car:hover .body { animation: bounce .45s ease-out; }
 }
-@keyframes lane { to { background-position: -68px 0; } }
-@keyframes drive-right { from { translate: -90px 0; } to { translate: calc(100vw + 90px) 0; } }
-@keyframes drive-left { from { translate: calc(100vw + 90px) 0; } to { translate: -90px 0; } }
+@keyframes drive-in { from { translate: -110vw 0; } to { translate: 0 0; } }
+@keyframes spin { from { rotate: -1440deg; } to { rotate: 0deg; } }
+@keyframes settle-body { 0% { translate: 0 0; rotate: 0deg; } 35% { translate: 0 2.5px; rotate: 1.2deg; } 70% { translate: 0 -1px; rotate: -.4deg; } 100% { translate: 0 0; rotate: 0deg; } }
+@keyframes bounce { 0%, 100% { translate: 0 0; } 40% { translate: 0 -4px; } 70% { translate: 0 1px; } }
+@keyframes speed { 0% { opacity: 1; } 70% { opacity: .9; } 100% { opacity: 0; } }
+@media (min-width: 980px) { .hero-cars { margin-top: 34px; } .hero-car { width: 210px; } }
 
 /* Scroll reveals: CSS scroll-driven, never fully hidden, no JavaScript. */
 @supports (animation-timeline: view()) {
