@@ -251,6 +251,20 @@ export default {
     ref: 'Request number',
     whatsapp: 'In a hurry? Message us on WhatsApp',
     again: 'Send another request',
+    demoNotice: 'Demo mode: there is no Google Sheets connection, so this request was not saved.',
+  },
+  dashboard: {
+    badge: 'Proposal for the business',
+    title: 'Booking dashboard with a calendar',
+    lead: 'This is how your request would reach Meltemi: on a calendar with the whole fleet, not in a spreadsheet.',
+    newRequest: 'New',
+    legend: { new: 'New request', confirmed: 'Confirmed', pickup: 'Pick-up' },
+    features: [
+      'Availability calendar per car, with drag-to-change dates',
+      'Customer profiles with booking history, phone and notes',
+      'Confirm a request in one click, with an automatic email in the customer’s language',
+      'Daily list of pick-ups and returns for the airport and the port',
+    ],
   },
   whatsappText: 'Hello, I’d like a car: {car}, from {pickup} to {dropoff}, pick-up: {place}. Name: {name}.',
   faq: {

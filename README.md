@@ -134,10 +134,16 @@ lib/handler.js
   3. Price calculation and request number (e.g. MR-7KQ2D)
   4. Store the request: Google Sheet and/or local file
   5. Email the customer auto-reply and the owner notification
-  6. 200 { ref, days, total, mailed }, or 503 if it could not be stored anywhere
+  6. 200 { ref, days, total, mailed }, 200 { demo: true } when no storage is configured,
+     or 503 when configured storage failed
 ```
 
-The endpoint never reports success unless the request was actually stored (Sheet, file, or delivered owner email). On a 503 the visitor sees the WhatsApp fallback.
+**Demo mode.** If no storage is configured at all (no `SHEETS_WEBHOOK_URL`, `LOCAL_STORE_FILE`, SMTP or Resend), for example on a fresh Vercel deployment, the endpoint accepts the request with `demo: true`. The visitor sees the normal success screen, plus:
+
+- a small notice saying there is no Google Sheets connection and the request was not saved
+- a **booking dashboard proposal** for the business: a mock calendar of the fleet showing the visitor's own request as a new booking, with the planned features (availability calendar per car, customer profiles, one-click confirmation with an automatic email, a daily pick-up and return list)
+
+If storage *is* configured but every sink fails, the endpoint returns 503 and the visitor gets the WhatsApp fallback. A real request is never silently lost.
 
 ### Build-time checks
 
@@ -183,7 +189,7 @@ For testing error states, the local server only:
 | `MAIL_FROM` | Sender for Resend, e.g. `Meltemi Rentals <bookings@your-domain>` |
 | `OWNER_EMAIL` | Where new-request notifications go |
 
-At least one storage option (`SHEETS_WEBHOOK_URL`) must be configured. Otherwise the endpoint returns 503 by design.
+Without any storage option the site runs in demo mode (see [Request flow](#request-flow)): the form works end to end but nothing is saved.
 
 ### Google Sheet setup
 
@@ -219,3 +225,4 @@ Reviews, rating, owner names, phone numbers, email and address are illustrative.
 - Real-time availability per category
 - German, Italian and Dutch versions for the main markets in Kos
 - Live Google reviews through the Places API
+- The booking dashboard shown in demo mode: availability calendar per car, customer profiles, one-click confirmations and a daily pick-up/return list

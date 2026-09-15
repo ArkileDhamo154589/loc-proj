@@ -406,10 +406,53 @@
     $('[data-success-total]', success).textContent = body.total
       ? t.cars[v.category] + ', ' + daysLabel(body.days) + ': ' + money(body.total)
       : (car ? t.cars[car.id] : '');
+    $('[data-demo-notice]', success).hidden = !body.demo;
+    var dash = $('[data-dashboard]', success);
+    dash.hidden = !body.demo;
+    if (body.demo) renderCalendar(v, body);
     form.hidden = true;
     success.hidden = false;
     success.focus({ preventScroll: true });
     success.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'center' });
+  }
+
+  // Mock booking calendar for the dashboard proposal, with the visitor's request in its real row.
+  function renderCalendar(v, body) {
+    var cal = $('[data-cal]', success);
+    var d = t.dashboard;
+    var sample = {
+      mini: [{ s: 3, l: 4, n: 'K. Pappa', st: 'confirmed' }],
+      auto: [{ s: 0, l: 5, n: 'J. Müller', st: 'confirmed' }],
+      cabrio: [{ s: 1, l: 3, n: 'L. Rossi', st: 'pickup' }],
+      suv: [{ s: 2, l: 5, n: 'M. de Vries', st: 'confirmed' }],
+    };
+    var span = Math.max(1, Math.min(7, body.days || 1));
+    var start = v.pickup ? v.pickup.split('-').map(Number) : null;
+    var fmt = new Intl.DateTimeFormat(lang === 'el' ? 'el-GR' : 'en-GB', { weekday: 'short', timeZone: 'UTC' });
+    var html = '<span class="cal-corner"></span>';
+    for (var i = 0; i < 7; i++) {
+      var date = start ? new Date(Date.UTC(start[0], start[1] - 1, start[2] + i)) : null;
+      html += '<span class="cal-day">' + (date ? fmt.format(date).replace('.', '') + '<b>' + date.getUTCDate() + '</b>' : i + 1) + '</span>';
+    }
+    MR.fleet.forEach(function (car) {
+      var bars = (sample[car.id] || []).filter(function (b) { return car.id !== v.category || b.s >= span; });
+      if (car.id === v.category) bars.unshift({ s: 0, l: span, n: v.name.split(' ')[0] + ' · ' + body.ref, st: 'new' });
+      html += '<span class="cal-car">' + t.cars[car.id] + '</span><span class="cal-track">';
+      bars.forEach(function (b, k) {
+        html += '<span class="cal-bar st-' + b.st + '" style="left:' + (b.s / 7 * 100) + '%;width:calc(' + (b.l / 7 * 100) + '% - 4px);--k:' + k + '">' +
+          (b.st === 'new' ? '<em>' + d.newRequest + '</em>' : '') + '<span></span></span>';
+      });
+      html += '</span>';
+    });
+    cal.innerHTML = html;
+    // Names are set as text so visitor input is never parsed as HTML.
+    var labels = $$('.cal-bar > span', cal);
+    var idx = 0;
+    MR.fleet.forEach(function (car) {
+      var bars = (sample[car.id] || []).filter(function (b) { return car.id !== v.category || b.s >= span; });
+      if (car.id === v.category) bars.unshift({ n: v.name.split(' ')[0] + ' · ' + body.ref });
+      bars.forEach(function (b) { labels[idx++].textContent = b.n; });
+    });
   }
 
   $('[data-again]', success).addEventListener('click', function () {

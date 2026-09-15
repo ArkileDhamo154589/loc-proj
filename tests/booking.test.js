@@ -55,10 +55,20 @@ test('auto-reply asks only for missing details, in the visitor language', () => 
   assert.doesNotMatch(withDetails.text, /still need/);
 });
 
-test('handler refuses to report success when no sink is configured', async () => {
+test('handler accepts requests in demo mode when no storage is configured', async () => {
   const res = await handleBookingRequest({ ...valid, pickup: '2099-07-10', dropoff: '2099-07-17' }, {}, silent);
+  assert.equal(res.status, 200);
+  assert.equal(res.body.demo, true);
+  assert.equal(res.body.total, 245);
+});
+
+test('handler reports 503 when configured storage fails', async () => {
+  const res = await handleBookingRequest(
+    { ...valid, pickup: '2099-07-10', dropoff: '2099-07-17' },
+    { LOCAL_STORE_FILE: new URL('../package.json/requests.jsonl', import.meta.url).pathname },
+    silent,
+  );
   assert.equal(res.status, 503);
-  assert.equal(res.body.ok, false);
 });
 
 test('handler returns field errors as 422', async () => {

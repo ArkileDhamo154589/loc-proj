@@ -112,6 +112,7 @@ export function renderPage({ t, other, cssText, jsText }) {
       form: t.form,
       errors: t.errors,
       success: t.success,
+      dashboard: t.dashboard,
       questions: t.questions,
       whatsappText: t.whatsappText,
       cars: Object.fromEntries(Object.entries(t.cars).map(([k, v]) => [k, v.name])),
@@ -398,10 +399,25 @@ ${sprite()}
         <p class="success-ref">${t.success.ref}: <strong data-success-ref></strong></p>
         <p data-success-body></p>
         <p class="success-total" data-success-total></p>
+        <p class="demo-notice" data-demo-notice hidden>${icon('alert')}<span>${t.success.demoNotice}</span></p>
         <div class="success-actions">
           <a class="btn btn-primary" href="https://wa.me/${CONTACT.whatsapp}" rel="noopener">${icon('whatsapp')}<span>${t.success.whatsapp}</span></a>
           <button type="button" class="btn btn-ghost" data-again>${t.success.again}</button>
         </div>
+        <aside class="dash" data-dashboard hidden>
+          <p class="dash-badge">${icon('calendar')}${t.dashboard.badge}</p>
+          <h4>${t.dashboard.title}</h4>
+          <p class="dash-lead">${t.dashboard.lead}</p>
+          <div class="cal-wrap"><div class="cal" data-cal></div></div>
+          <ul class="cal-legend">
+            <li><i class="st-new"></i>${t.dashboard.legend.new}</li>
+            <li><i class="st-confirmed"></i>${t.dashboard.legend.confirmed}</li>
+            <li><i class="st-pickup"></i>${t.dashboard.legend.pickup}</li>
+          </ul>
+          <ul class="dash-features">
+            ${t.dashboard.features.map((f) => `<li>${icon('check')}<span>${f}</span></li>`).join('')}
+          </ul>
+        </aside>
       </div>
     </div>
   </div>
