@@ -1,0 +1,11 @@
+{
+  "name": "meltemi-rentals",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "build": "node build.js",
+    "dev": "node server.js",
+    "test": "node --test tests/*.test.js"
+  }
+}
