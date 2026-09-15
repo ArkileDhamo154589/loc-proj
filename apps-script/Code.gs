@@ -1,7 +1,8 @@
 /**
  * Google Apps Script web app for Meltemi Rentals booking requests.
  *
- * POST: checks availability, appends one row per request and sends the prepared emails.
+ * POST: checks availability and appends one row per request.
+ * POST { action: 'mail', mails }: sends the prepared emails (called right after the row is saved).
  * GET ?action=availability&pickup=YYYY-MM-DD&dropoff=YYYY-MM-DD: booked cars per category.
  * GET ?action=find&ref=MR-XXXXX: whether a request has already been saved.
  *
@@ -24,6 +25,7 @@ function doPost(e) {
   try {
     var payload = JSON.parse(e.postData.contents);
     if (!authorized(payload.token)) return json({ ok: false, error: 'unauthorized' });
+    if (payload.action === 'mail') return json({ ok: true, mailErrors: sendMails(payload.mails) });
 
     var r = payload.row;
     var lock = LockService.getScriptLock();
@@ -47,24 +49,7 @@ function doPost(e) {
       lock.releaseLock();
     }
 
-    // The row is already saved: a bad address must not turn the request into a failure.
-    var mailErrors = [];
-    (payload.mails || []).forEach(function (m) {
-      try {
-        MailApp.sendEmail({
-          to: m.to,
-          subject: m.subject,
-          body: m.text,
-          htmlBody: m.html,
-          name: m.fromName || 'Meltemi Rentals',
-          replyTo: m.replyTo || undefined,
-        });
-      } catch (mailErr) {
-        mailErrors.push(m.to + ': ' + String(mailErr));
-      }
-    });
-
-    return json({ ok: true, mailErrors: mailErrors });
+    return json({ ok: true, mailErrors: sendMails(payload.mails) });
   } catch (err) {
     return json({ ok: false, error: String(err) });
   }
@@ -84,6 +69,26 @@ function doGet(e) {
   } catch (err) {
     return json({ ok: false, error: String(err) });
   }
+}
+
+// A bad address or a mail quota error must never turn a saved request into a failure.
+function sendMails(mails) {
+  var errors = [];
+  (mails || []).forEach(function (m) {
+    try {
+      MailApp.sendEmail({
+        to: m.to,
+        subject: m.subject,
+        body: m.text,
+        htmlBody: m.html,
+        name: m.fromName || 'Meltemi Rentals',
+        replyTo: m.replyTo || undefined,
+      });
+    } catch (err) {
+      errors.push(m.to + ': ' + String(err));
+    }
+  });
+  return errors;
 }
 
 function authorized(token) {
