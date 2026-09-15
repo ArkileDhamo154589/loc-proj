@@ -7,7 +7,7 @@ import { watch } from 'node:fs';
 import { extname, join, normalize } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { build } from './build.js';
-import { handleBookingRequest } from './lib/handler.js';
+import { handleBookingRequest, handleAvailability } from './lib/handler.js';
 
 const root = fileURLToPath(new URL('.', import.meta.url));
 const publicDir = join(root, 'public');
@@ -60,6 +60,12 @@ async function readJson(req) {
 }
 
 const server = http.createServer(async (req, res) => {
+  if (req.url.startsWith('/api/availability')) {
+    const q = Object.fromEntries(new URL(req.url, 'http://localhost').searchParams);
+    const result = await handleAvailability(q);
+    res.writeHead(result.status, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });
+    return res.end(JSON.stringify(result.body));
+  }
   if (req.url.startsWith('/api/request')) {
     if (req.method !== 'POST') {
       res.writeHead(405, { Allow: 'POST', 'Content-Type': 'application/json' });

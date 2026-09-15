@@ -219,6 +219,10 @@
   function setCategory(id, animate) {
     var input = $('input[name="category"][value="' + id + '"]', form);
     if (!input) return;
+    if (availability && availability[id] === 0) {
+      showError('category', 'unavailable');
+      return;
+    }
     input.checked = true;
     clearError('category');
     if (animate) {
@@ -255,6 +259,59 @@
     clearError('pickup');
     clearError('dropoff');
   });
+
+  /* ---------- Availability for the chosen dates ---------- */
+  var availability = null;
+  var availTimer = null;
+  var availSeq = 0;
+
+  function paintAvailability(state) {
+    $$('.cat-opt', form).forEach(function (opt) {
+      var id = opt.getAttribute('data-cat');
+      var badge = $('[data-avail]', opt);
+      var input = $('input', opt);
+      var s = state === 'checking' ? 'checking' : state && id in state ? (state[id] === 0 ? 'no' : state[id] === 1 ? 'last' : 'yes') : '';
+      if (s) opt.setAttribute('data-state', s);
+      else opt.removeAttribute('data-state');
+      badge.textContent = { checking: t.form.availChecking, yes: t.form.availYes, last: t.form.availLast, no: t.form.availNo }[s] || '';
+      input.disabled = s === 'no';
+      if (s === 'no' && input.checked) {
+        input.checked = false;
+        showError('category', 'unavailable');
+        renderSummary();
+      }
+    });
+  }
+
+  function checkAvailability() {
+    clearTimeout(availTimer);
+    var v = values();
+    if (!v.pickup || !v.dropoff || daysBetween(v.pickup, v.dropoff) < 1 || v.pickup < isoToday()) {
+      availability = null;
+      paintAvailability(null);
+      return;
+    }
+    availTimer = setTimeout(function () {
+      var seq = ++availSeq;
+      paintAvailability('checking');
+      fetch('/api/availability?pickup=' + v.pickup + '&dropoff=' + v.dropoff, { headers: { Accept: 'application/json' } })
+        .then(function (res) { return res.json(); })
+        .then(function (body) {
+          if (seq !== availSeq) return;
+          availability = body.ok && body.available ? body.available : null;
+          paintAvailability(availability);
+        })
+        .catch(function () {
+          // The server checks again on submit, so a failed lookup only hides the badges.
+          if (seq !== availSeq) return;
+          availability = null;
+          paintAvailability(null);
+        });
+    }, 350);
+  }
+
+  pickup.addEventListener('change', checkAvailability);
+  dropoff.addEventListener('change', checkAvailability);
 
   form.addEventListener('input', function (e) {
     if (e.target.name && e.target.name !== 'website') clearError(e.target.name);
@@ -310,6 +367,7 @@
       else if (d > MR.maxDays) errors.dropoff = 'tooLong';
     }
     if (!v.category) errors.category = 'required';
+    else if (availability && availability[v.category] === 0) errors.category = 'unavailable';
     return errors;
   }
 
@@ -346,7 +404,11 @@
     submitBtn.classList.toggle('is-loading', on);
     submitBtn.setAttribute('aria-busy', on ? 'true' : 'false');
     submitLabel.textContent = on ? t.form.sending : t.form.submit;
+    clearTimeout(slowTimer);
+    // Saving to the Sheet and sending the emails can take a few seconds: say what is happening.
+    if (on) slowTimer = setTimeout(function () { submitLabel.textContent = t.form.sendingSlow; }, 2500);
   }
+  var slowTimer = null;
 
   var sending = false;
   form.addEventListener('submit', function (e) {
@@ -369,7 +431,7 @@
     setLoading(true);
     var payload = Object.assign({}, v, { lang: lang, website: form.elements.website.value, startedAt: startedAt });
     var controller = 'AbortController' in window ? new AbortController() : null;
-    var timer = setTimeout(function () { if (controller) controller.abort(); }, 15000);
+    var timer = setTimeout(function () { if (controller) controller.abort(); }, 35000);
 
     fetch('/api/request', {
       method: 'POST',
@@ -382,6 +444,14 @@
       })
       .then(function (r) {
         if (r.status === 200 && r.body.ok) return onSuccess(v, r.body);
+        if (r.status === 409 && r.body.error === 'unavailable') {
+          if (r.body.available) {
+            availability = r.body.available;
+            paintAvailability(availability);
+          }
+          showAlert(t.errors.unavailable, false);
+          return applyErrors({ category: 'unavailable' });
+        }
         if (r.status === 422 && r.body.fields) {
           showAlert(t.errors.summary, false);
           return applyErrors(r.body.fields);
@@ -459,12 +529,14 @@
     form.reset();
     startedAt = Date.now();
     renderSummary();
+    checkAvailability();
     success.hidden = true;
     form.hidden = false;
     form.elements.name.focus();
   });
 
   renderSummary();
+  checkAvailability();
 
   /* ---------- Sticky mobile bar ---------- */
   (function () {

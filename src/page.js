@@ -347,6 +347,7 @@ ${sprite()}
               <input type="radio" name="category" value="${c.id}" required>
               <span class="cat-name">${t.cars[c.id].name}</span>
               <span class="cat-price">${fill(t.form.perDay, { price: money(c.price, lang) })}</span>
+              <span class="cat-avail" data-avail></span>
             </label>`).join('')}
           </div>
           <p class="field-error" id="category-error" hidden></p>
