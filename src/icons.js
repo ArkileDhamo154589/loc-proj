@@ -31,6 +31,7 @@ const PATHS = {
   alert: '<path d="M12 3.5L2.8 19.5h18.4z"/><path d="M12 10v4.5M12 17h.01"/>',
   key: '<circle cx="7.5" cy="12" r="4.5"/><circle cx="7.5" cy="12" r="1.4"/><path d="M12 12h9.5M18 12v3.5M21 12v2.5"/>',
   sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2.5V5M12 19v2.5M2.5 12H5M19 12h2.5M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M5.3 18.7l1.8-1.8M16.9 7.1l1.8-1.8"/>',
+  arrowUp: '<path d="M12 19V5"/><path d="M6 11l6-6 6 6"/>',
   calendar: '<rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M8 3v4M16 3v4"/>',
 };
 

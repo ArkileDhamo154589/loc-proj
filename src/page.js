@@ -347,7 +347,6 @@ ${sprite()}
               <input type="radio" name="category" value="${c.id}" required>
               <span class="cat-name">${t.cars[c.id].name}</span>
               <span class="cat-price">${fill(t.form.perDay, { price: money(c.price, lang) })}</span>
-              <span class="cat-avail" data-avail></span>
             </label>`).join('')}
           </div>
           <p class="field-error" id="category-error" hidden></p>
@@ -468,6 +467,8 @@ ${sprite()}
     <a class="lang-switch" href="${otherHref}" hreflang="${other.lang}" lang="${other.lang}">${icon('globe')}<span>${t.nav.switchTo}</span></a>
   </div>
 </footer>
+
+<a class="to-top" href="#main" data-to-top aria-label="${t.nav.backToTop}" title="${t.nav.backToTop}">${icon('arrowUp')}</a>
 
 <div class="sticky-bar" data-sticky aria-hidden="true">
   <a class="btn btn-primary" href="#book" tabindex="-1">${t.sticky.book}</a>

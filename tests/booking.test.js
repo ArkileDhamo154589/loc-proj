@@ -93,38 +93,3 @@ test('env values are trimmed and an invalid owner email does not break delivery'
   assert.equal(res.status, 200);
   assert.equal(res.body.demo, undefined);
 });
-
-test('availability counts overlapping bookings per category from the local store', async () => {
-  const { handleAvailability } = await import('../lib/handler.js');
-  const { writeFile, rm } = await import('node:fs/promises');
-  const file = new URL('../data/test-availability.jsonl', import.meta.url).pathname;
-  const booking = (category, pickup, dropoff) => JSON.stringify({ ref: 'MR-T', category, pickup, dropoff });
-  await writeFile(file, [
-    booking('suv', '2099-07-08', '2099-07-12'),
-    booking('suv', '2099-07-15', '2099-07-20'),
-    booking('suv', '2099-07-01', '2099-07-10'), // returns on pick-up day: does not overlap
-    booking('mini', '2099-08-01', '2099-08-05'),
-  ].join('\n') + '\n');
-  try {
-    const env = { LOCAL_STORE_FILE: file };
-    const res = await handleAvailability({ pickup: '2099-07-10', dropoff: '2099-07-17' }, env, silent);
-    assert.equal(res.status, 200);
-    assert.equal(res.body.available.suv, 0);
-    assert.equal(res.body.available.mini, 4);
-
-    const booked = await handleBookingRequest({ ...valid, category: 'suv', pickup: '2099-07-10', dropoff: '2099-07-17' }, env, silent);
-    assert.equal(booked.status, 409);
-    assert.equal(booked.body.fields.category, 'unavailable');
-
-    const free = await handleBookingRequest({ ...valid, category: 'mini', pickup: '2099-07-10', dropoff: '2099-07-17' }, env, silent);
-    assert.equal(free.status, 200);
-  } finally {
-    await rm(file, { force: true });
-  }
-});
-
-test('availability rejects invalid dates', async () => {
-  const { handleAvailability } = await import('../lib/handler.js');
-  const res = await handleAvailability({ pickup: '2099-07-10', dropoff: '2099-07-10' }, {}, silent);
-  assert.equal(res.status, 422);
-});

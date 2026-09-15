@@ -12,6 +12,7 @@ export default {
     book: 'Book',
     switchTo: 'Ελληνικά',
     switchShort: 'EL',
+    backToTop: 'Back to top',
     home: 'Meltemi Rentals, home',
   },
   langSuggest: {
@@ -220,10 +221,6 @@ export default {
     submit: 'Send booking request',
     sending: 'Sending…',
     sendingSlow: 'Saving your request…',
-    availChecking: 'Checking…',
-    availYes: 'Available',
-    availLast: 'Last one left',
-    availNo: 'Not available',
     disclaimer: 'This isn’t a binding booking. If you change your mind, you don’t need to do anything.',
   },
   errors: {
@@ -242,11 +239,7 @@ export default {
       beforePickup: 'The return date must be at least one day after pick-up.',
       tooLong: 'For more than 60 days, call us and we’ll give you a monthly price.',
     },
-    category: {
-      required: 'Choose a car category.',
-      unavailable: 'This category isn’t available for your dates. Choose another category or other dates.',
-    },
-    unavailable: 'The last car in this category for your dates was just booked. Please choose another category.',
+    category: { required: 'Choose a car category.' },
     summary: 'Fix the highlighted fields and send again.',
     network: 'Your request wasn’t sent, probably because the connection dropped. Your details are still here: try again or send them to us on WhatsApp.',
     server: 'Your request wasn’t saved because of a problem on our side. Your details are still here: send them on WhatsApp and we’ll reply right away.',
