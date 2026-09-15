@@ -115,14 +115,9 @@ export default {
   photos: {
     hero: 'White car parked at a harbour, with a ferry and turquoise water behind it',
     heroTag: 'We also meet you at the port',
-    kefalos: 'Kefalos bay in Kos with the small island of Kastri',
     credits: 'Photos',
     creditsLead: 'From Wikimedia Commons, cropped:',
-    names: { hero: 'Fiat Panda, harbour', mini: 'Hyundai i10', auto: 'Toyota Yaris Hybrid', cabrio: 'Mini Cooper Roadster', suv: 'Dacia Duster', kefalos: 'Kefalos, Kos' },
-  },
-  band: {
-    title: 'From the airport to Kefalos beach in 20 minutes.',
-    text: 'Your car waits at the arrivals exit with a full tank. All you do is drive.',
+    names: { hero: 'Fiat Panda, harbour', mini: 'Hyundai i10', auto: 'Toyota Yaris Hybrid', cabrio: 'Mini Cooper Roadster', suv: 'Dacia Duster' },
   },
   reasons: {
     title: 'Why book with us',

@@ -115,14 +115,9 @@ export default {
   photos: {
     hero: 'Λευκό αυτοκίνητο παρκαρισμένο στο λιμάνι, με φέρι και τιρκουάζ νερά πίσω του',
     heroTag: 'Σε περιμένουμε και στο λιμάνι',
-    kefalos: 'Ο κόλπος του Κεφάλου στην Κω με το νησάκι Καστρί',
     credits: 'Φωτογραφίες',
     creditsLead: 'Από το Wikimedia Commons, με περικοπή:',
-    names: { hero: 'Fiat Panda, λιμάνι', mini: 'Hyundai i10', auto: 'Toyota Yaris Hybrid', cabrio: 'Mini Cooper Roadster', suv: 'Dacia Duster', kefalos: 'Κέφαλος, Κως' },
-  },
-  band: {
-    title: 'Από το αεροδρόμιο στην παραλία του Κεφάλου σε 20 λεπτά.',
-    text: 'Το αυτοκίνητο σε περιμένει στην έξοδο των αφίξεων, με γεμάτο ρεζερβουάρ. Εσύ απλώς οδηγείς.',
+    names: { hero: 'Fiat Panda, λιμάνι', mini: 'Hyundai i10', auto: 'Toyota Yaris Hybrid', cabrio: 'Mini Cooper Roadster', suv: 'Dacia Duster' },
   },
   reasons: {
     title: 'Γιατί να κλείσεις με εμάς',

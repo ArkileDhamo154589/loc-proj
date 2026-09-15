@@ -287,19 +287,6 @@ ${sprite()}
   </div>
 </section>
 
-<section class="band" aria-label="${attr(t.photos.kefalos)}">
-  <picture>
-    <source media="(min-width: 760px)" srcset="/img/kefalos-wide-1000.webp 1000w, /img/kefalos-wide-1600.webp 1600w" sizes="100vw" width="1600" height="533">
-    <img src="/img/kefalos-640.webp" width="640" height="480" loading="lazy" decoding="async" alt="${attr(t.photos.kefalos)}">
-  </picture>
-  <div class="container band-inner">
-    <div class="band-card reveal">
-      <p class="band-title">${t.band.title}</p>
-      <p>${t.band.text}</p>
-    </div>
-  </div>
-</section>
-
 <section id="book" class="section book">
   <div class="container book-grid">
     <div class="book-intro">

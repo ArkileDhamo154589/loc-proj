@@ -41,10 +41,9 @@ Visitors arrive having already seen "€8". The owner doesn't want to lower the 
 | 4 | **Three reasons** | Price certainty, zero excess with no deposit, meet-and-greet at arrivals |
 | 5 | **Reviews and an owner quote** | Social proof just before the decision. The reviews repeat the same fear ("booked at €9, paid €310"). |
 | 6 | **Five questions to ask wherever you book** | Instead of attacking competitors, the page gives visitors the questions to ask them, with a copy button. If they keep shopping, they carry Meltemi's criteria with them. |
-| 7 | **Kefalos photo band**: "From the airport to Kefalos beach in 20 minutes" | Brings the holiday back into view right before the form |
-| 8 | **Booking form** | Five required fields, the live final amount, "nothing to pay now, reply within 2 hours" |
-| 9 | **FAQ** | Insurance scope, documents, payment, cancellation, late flights, ferries |
-| 10 | **Footer** | Phone, WhatsApp, email, address, photo credits |
+| 7 | **Booking form** | Five required fields, the live final amount, "nothing to pay now, reply within 2 hours" |
+| 8 | **FAQ** | Insurance scope, documents, payment, cancellation, late flights, ferries |
+| 9 | **Footer** | Phone, WhatsApp, email, address, photo credits |
 
 On phones, a sticky bar with **Check availability / WhatsApp / Call** appears once the hero is off screen and hides again when the form is visible.
 
@@ -79,12 +78,12 @@ On phones, a sticky bar with **Check availability / WhatsApp / Call** appears on
   - *Sofia Sans Condensed* for headlines and prices. It is compact and sign-like, so large numbers stay readable on a phone.
   - *Sofia Sans* for body text.
   - Both have full Greek support and are self-hosted.
-- **Photos.** Real photos of the car models and of Kos. See [Photo credits](#9-photo-credits).
+- **Photos.** Real photos of the car models and a Greek harbour. See [Photo credits](#9-photo-credits).
 - **Icons.** An inline SVG sprite, with no emoji or icon fonts.
 - **Motion.**
   - An orchestrated hero entrance: the location pill, headline and copy rise in, the photo wipes open, the receipt card slides up, its ticks draw one by one and the price tag drops in.
   - CSS scroll-driven reveals for cards and headings. They never fully hide content and need no JavaScript.
-  - A Ken Burns effect on the Kefalos photo, and a one-time "stamp" on the hidden charges.
+  - A one-time "stamp" on the hidden charges when the calculator scrolls into view.
   - Interaction feedback: counting totals, button press and shine, category pick, form shake on error, success check.
   - Everything is disabled under `prefers-reduced-motion`.
 
@@ -205,7 +204,6 @@ Photos come from Wikimedia Commons. They were cropped and converted to WebP. Cre
 | [Toyota Yaris Hybrid](https://commons.wikimedia.org/wiki/File:Toyota_Yaris_Hybrid_(XP210)_IMG_4912.jpg) | Alexander Migl | CC BY-SA 4.0 |
 | [2014 MINI Cooper Roadster](https://commons.wikimedia.org/wiki/File:2014_MINI_Cooper_Roadster_S.png) | DiverDan1981 | CC BY-SA 4.0 |
 | [2018 Dacia Duster](https://commons.wikimedia.org/wiki/File:2018_Dacia_Duster_Comfort_1.6.jpg) | Vauxford | CC BY-SA 4.0 |
-| [Kefalos, Kos](https://commons.wikimedia.org/wiki/File:Kefalos_K%C3%B3s_6.jpg) | Karelj | Public domain |
 
 ## 10. Placeholder content
 
