@@ -119,6 +119,18 @@ export default {
     creditsLead: 'From Wikimedia Commons, cropped:',
     names: { hero: 'Fiat Panda, harbour', mini: 'Hyundai i10', auto: 'Toyota Yaris Hybrid', cabrio: 'Mini Cooper Roadster', suv: 'Dacia Duster' },
   },
+  arrival: {
+    title: 'From the airport to Kefalos beach in 20 minutes.',
+    text: 'Your car waits at the arrivals exit with a full tank. All you do is drive.',
+    steps: [
+      { icon: 'plane', time: '14:20', title: 'You land', text: 'We track your flight. If it’s late, we wait at no charge.' },
+      { icon: 'key', time: '14:35', title: 'You get the keys', text: 'One of us meets you with your name on a sign. You sign with no card deposit and no charges at the desk.' },
+      { icon: 'sun', time: '14:55', title: 'You’re at the beach', text: 'Kefalos is 20 minutes from the airport. Anyone who didn’t book a car is still waiting for a taxi.' },
+    ],
+    note: 'Example times for a flight landing at 14:20.',
+    assurances: ['Nothing to pay now', 'Free cancellation up to 24 hours before', 'Reply within 2 hours'],
+    cta: 'Book your car',
+  },
   reasons: {
     title: 'Why book with us',
     items: [

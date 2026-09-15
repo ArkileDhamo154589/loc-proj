@@ -41,9 +41,10 @@ Visitors arrive having already seen "€8". The owner doesn't want to lower the 
 | 4 | **Three reasons** | Price certainty, zero excess with no deposit, meet-and-greet at arrivals |
 | 5 | **Reviews and an owner quote** | Social proof just before the decision. The reviews repeat the same fear ("booked at €9, paid €310"). |
 | 6 | **Five questions to ask wherever you book** | Instead of attacking competitors, the page gives visitors the questions to ask them, with a copy button. If they keep shopping, they carry Meltemi's criteria with them. |
-| 7 | **Booking form** | Five required fields, the live final amount, "nothing to pay now, reply within 2 hours" |
-| 8 | **FAQ** | Insurance scope, documents, payment, cancellation, late flights, ferries |
-| 9 | **Footer** | Phone, WhatsApp, email, address, photo credits |
+| 7 | **Arrival timeline**: "From the airport to Kefalos beach in 20 minutes" (14:20 land, 14:35 keys, 14:55 beach), plus nothing to pay now, free cancellation and a 2-hour reply | Makes the benefit concrete and removes the risk of acting now, right before the form |
+| 8 | **Booking form** | Five required fields, the live final amount, "nothing to pay now, reply within 2 hours" |
+| 9 | **FAQ** | Insurance scope, documents, payment, cancellation, late flights, ferries |
+| 10 | **Footer** | Phone, WhatsApp, email, address, photo credits |
 
 On phones, a sticky bar with **Check availability / WhatsApp / Call** appears once the hero is off screen and hides again when the form is visible.
 

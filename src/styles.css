@@ -292,6 +292,35 @@ img, svg { max-width: 100%; }
 .qa-a .i { width: 18px; height: 18px; stroke-width: 2.8; }
 [data-copy-questions].is-done { --bg: var(--ok-soft); }
 
+/* Arrival timeline: the reason to book now, right before the form */
+.arrival { background: var(--ink); color: #fff; border-top: var(--line); }
+.arrival-head { max-width: 46rem; }
+.arrival-head h2 { font-size: clamp(2.1rem, 6.4vw, 3.4rem); color: #fff; }
+.arrival-head p { margin-top: 14px; font-size: 1.1875rem; color: #C9D6E0; max-width: 38rem; }
+.arrival-steps { position: relative; list-style: none; margin: 36px 0 0; padding: 0; display: grid; gap: 18px; }
+.arrival-steps::before { content: ''; position: absolute; left: 27px; top: 28px; bottom: 28px; width: 0; border-left: 3px dashed var(--sun); transform-origin: top; }
+.arrival-step { position: relative; background: var(--paper); color: var(--ink); border: var(--line); border-radius: var(--r-card); box-shadow: 5px 5px 0 var(--sun); padding: 18px 18px 20px 72px; }
+.step-top { position: absolute; left: 10px; top: 16px; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.step-time { order: 2; font-family: var(--f-display); font-weight: 800; font-size: 1rem; line-height: 1; background: var(--sun); border: var(--line); border-radius: 8px; padding: 3px 5px; font-variant-numeric: tabular-nums; }
+.step-ico { order: 1; display: grid; place-items: center; width: 46px; height: 46px; border: var(--line); border-radius: 50%; background: var(--sea-soft); color: var(--sea); }
+.step-ico .i { width: 24px; height: 24px; }
+.arrival-step h3 { font-size: 1.625rem; }
+.arrival-step p { margin-top: 6px; color: #2D4254; }
+.arrival-note { margin-top: 14px; font-size: .8125rem; color: #93A7B6; }
+.arrival-cta { margin-top: 28px; display: flex; flex-direction: column; gap: 18px; padding: 20px; border: 2px solid #3C5568; border-radius: var(--r-card); }
+.assure { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; font-weight: 700; }
+.assure li { display: flex; align-items: center; gap: 10px; }
+.assure .i { flex: none; width: 26px; height: 26px; padding: 4px; border-radius: 50%; background: var(--sun); color: var(--ink); stroke-width: 3; }
+.arrival .btn-primary { border-color: #fff; box-shadow: 4px 4px 0 var(--sun); white-space: nowrap; flex: none; }
+.arrival .btn-primary:hover { box-shadow: 6px 6px 0 var(--sun); }
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .arrival-steps::before { animation: route-draw linear both; animation-timeline: view(); animation-range: entry 10% cover 55%; }
+  }
+}
+@keyframes route-draw { from { scale: 1 0; } to { scale: 1 1; } }
+@media (min-width: 760px) { @keyframes route-draw { from { scale: 0 1; } to { scale: 1 1; } } }
+
 /* Booking form */
 .book { scroll-margin-top: 64px; }
 .book-grid { display: grid; gap: 32px; align-items: start; }
@@ -514,6 +543,14 @@ fieldset.field legend { padding: 0; margin-bottom: 6px; }
   .calc-controls { grid-template-columns: auto 260px 1fr; gap: 24px; padding: 16px 22px; }
   .calc-grid { grid-template-columns: 1fr 1fr; }
   .reason-grid { grid-template-columns: repeat(3, 1fr); gap: 32px; }
+  .arrival-steps { grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 64px; }
+  .arrival-steps::before { left: 40px; right: 40px; top: 0; bottom: auto; width: auto; height: 0; border-left: 0; border-top: 3px dashed var(--sun); transform-origin: left; }
+  .arrival-step { padding: 44px 22px 24px; }
+  .step-top { left: 22px; top: -26px; flex-direction: row; gap: 10px; }
+  .step-time { order: 2; font-size: 1.125rem; padding: 4px 8px; }
+  .step-ico { width: 52px; height: 52px; }
+  .arrival-cta { flex-direction: row; align-items: center; justify-content: space-between; padding: 18px 22px; }
+  .assure { grid-template-columns: repeat(3, auto); gap: 12px 22px; }
   .footer-grid { grid-template-columns: 1.2fr 1fr; }
   .sticky-bar { display: none; }
   .site-footer { padding-bottom: 40px; }

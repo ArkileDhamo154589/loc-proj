@@ -287,6 +287,29 @@ ${sprite()}
   </div>
 </section>
 
+<section class="section arrival" aria-labelledby="arrival-title">
+  <div class="container">
+    <div class="arrival-head reveal">
+      <h2 id="arrival-title">${t.arrival.title}</h2>
+      <p>${t.arrival.text}</p>
+    </div>
+    <ol class="arrival-steps">
+      ${t.arrival.steps.map((s) => `<li class="arrival-step reveal">
+        <span class="step-top"><span class="step-time">${s.time}</span><span class="step-ico">${icon(s.icon)}</span></span>
+        <h3>${s.title}</h3>
+        <p>${s.text}</p>
+      </li>`).join('')}
+    </ol>
+    <p class="arrival-note">${t.arrival.note}</p>
+    <div class="arrival-cta reveal">
+      <ul class="assure">
+        ${t.arrival.assurances.map((a) => `<li>${icon('check')}${a}</li>`).join('')}
+      </ul>
+      <a class="btn btn-primary btn-lg" href="#book">${t.arrival.cta}</a>
+    </div>
+  </div>
+</section>
+
 <section id="book" class="section book">
   <div class="container book-grid">
     <div class="book-intro">
