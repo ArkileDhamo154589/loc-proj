@@ -43,6 +43,11 @@ function doPost(e) {
   }
 }
 
+// Opening the web app URL in a browser confirms the deployment is reachable.
+function doGet() {
+  return json({ ok: true, service: 'meltemi-booking-sheet' });
+}
+
 function getSheet() {
   var ss = SpreadsheetApp.getActiveSpreadsheet();
   var sheet = ss.getSheetByName(SHEET_NAME) || ss.insertSheet(SHEET_NAME);
