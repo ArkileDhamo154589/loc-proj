@@ -464,7 +464,7 @@ fieldset.field legend { padding: 0; margin-bottom: 6px; }
 .hero { position: relative; isolation: isolate; overflow: hidden; }
 
 @media (prefers-reduced-motion: no-preference) {
-  .hero-copy > :not(.hero-cars) { animation: rise .7s var(--ease) both; }
+  .hero-copy > * { animation: rise .7s var(--ease) both; }
   .hero-copy > :nth-child(1) { animation-delay: .05s; }
   .hero-copy > :nth-child(2) { animation-delay: .15s; }
   .hero-copy > :nth-child(3) { animation-delay: .27s; }
@@ -479,35 +479,6 @@ fieldset.field legend { padding: 0; margin-bottom: 6px; }
 @keyframes rise { from { opacity: 0; translate: 0 22px; } to { opacity: 1; translate: 0 0; } }
 @keyframes wipe { from { clip-path: inset(0 100% 0 0 round 22px); } to { clip-path: inset(0 0 0 0 round 22px); } }
 @keyframes settle { from { scale: 1.12; } to { scale: 1; } }
-
-/* Two cars drive into the hero and park: wheels spin, suspension settles, speed lines fade. */
-.hero-cars { display: flex; align-items: flex-end; gap: 18px; margin-top: 26px; }
-.hero-car { position: relative; display: block; width: min(46%, 200px); }
-.hero-car-art { display: block; width: 100%; height: auto; overflow: visible; }
-.hero-car .arch { fill: var(--canvas); }
-.hero-car .wheel, .hero-car .body { transform-box: fill-box; transform-origin: center; }
-.speed { position: absolute; left: -46px; top: 30%; display: grid; gap: 7px; opacity: 0; }
-.speed i { display: block; height: 3px; border-radius: 3px; background: var(--sea); opacity: .45; }
-.speed i:nth-child(1) { width: 34px; }
-.speed i:nth-child(2) { width: 22px; margin-left: 10px; }
-.speed i:nth-child(3) { width: 28px; margin-left: 4px; }
-@media (prefers-reduced-motion: no-preference) {
-  .hero-car { animation: drive-in 1.7s cubic-bezier(.16, .72, .22, 1) both; }
-  .hero-car .wheel { animation: spin 1.7s cubic-bezier(.16, .72, .22, 1) both; }
-  .hero-car .body { animation: settle-body .5s ease-out both; }
-  .hero-car .speed { animation: speed 1.7s ease-out both; }
-  .hero-car-a, .hero-car-a .wheel, .hero-car-a .speed { animation-delay: .9s; }
-  .hero-car-a .body { animation-delay: 2.45s; }
-  .hero-car-b, .hero-car-b .wheel, .hero-car-b .speed { animation-delay: 1.25s; }
-  .hero-car-b .body { animation-delay: 2.8s; }
-  .hero-car:hover .body { animation: bounce .45s ease-out; }
-}
-@keyframes drive-in { from { translate: -110vw 0; } to { translate: 0 0; } }
-@keyframes spin { from { rotate: -1440deg; } to { rotate: 0deg; } }
-@keyframes settle-body { 0% { translate: 0 0; rotate: 0deg; } 35% { translate: 0 2.5px; rotate: 1.2deg; } 70% { translate: 0 -1px; rotate: -.4deg; } 100% { translate: 0 0; rotate: 0deg; } }
-@keyframes bounce { 0%, 100% { translate: 0 0; } 40% { translate: 0 -4px; } 70% { translate: 0 1px; } }
-@keyframes speed { 0% { opacity: 1; } 70% { opacity: .9; } 100% { opacity: 0; } }
-@media (min-width: 980px) { .hero-cars { margin-top: 34px; } .hero-car { width: 210px; } }
 
 /* Scroll reveals: CSS scroll-driven, never fully hidden, no JavaScript. */
 @supports (animation-timeline: view()) {

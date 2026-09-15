@@ -83,7 +83,6 @@ On phones, a sticky bar with **Check availability / WhatsApp / Call** appears on
 - **Icons.** An inline SVG sprite, with no emoji or icon fonts.
 - **Motion.**
   - An orchestrated hero entrance: the location pill, headline and copy rise in, the photo wipes open, the receipt card slides up, its ticks draw one by one and the price tag drops in.
-  - Two illustrated SVG cars drive into the hero and park: the wheels spin, the suspension settles and the speed lines fade.
   - CSS scroll-driven reveals for cards and headings. They never fully hide content and need no JavaScript.
   - A Ken Burns effect on the Kefalos photo, and a one-time "stamp" on the hidden charges.
   - Interaction feedback: counting totals, button press and shine, category pick, form shake on error, success check.
