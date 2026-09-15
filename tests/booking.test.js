@@ -82,3 +82,14 @@ test('honeypot submissions get a fake success and are not stored', async () => {
   assert.equal(res.status, 200);
   assert.equal(res.body.days, undefined);
 });
+
+test('env values are trimmed and an invalid owner email does not break delivery', async () => {
+  const file = new URL('../data/test-requests.jsonl', import.meta.url).pathname;
+  const res = await handleBookingRequest(
+    { ...valid, pickup: '2099-07-10', dropoff: '2099-07-17' },
+    { LOCAL_STORE_FILE: `  ${file} `, OWNER_EMAIL: 'your email here' },
+    silent,
+  );
+  assert.equal(res.status, 200);
+  assert.equal(res.body.demo, undefined);
+});

@@ -26,18 +26,24 @@ function doPost(e) {
       r.pickup, r.dropoff, r.days, r.pricePerDay, r.total, r.place, r.note, r.lang, 'Νέο',
     ]);
 
+    // The row is already saved: a bad address must not turn the request into a failure.
+    var mailErrors = [];
     (payload.mails || []).forEach(function (m) {
-      MailApp.sendEmail({
-        to: m.to,
-        subject: m.subject,
-        body: m.text,
-        htmlBody: m.html,
-        name: m.fromName || 'Meltemi Rentals',
-        replyTo: m.replyTo || undefined,
-      });
+      try {
+        MailApp.sendEmail({
+          to: m.to,
+          subject: m.subject,
+          body: m.text,
+          htmlBody: m.html,
+          name: m.fromName || 'Meltemi Rentals',
+          replyTo: m.replyTo || undefined,
+        });
+      } catch (mailErr) {
+        mailErrors.push(m.to + ': ' + String(mailErr));
+      }
     });
 
-    return json({ ok: true });
+    return json({ ok: true, mailErrors: mailErrors });
   } catch (err) {
     return json({ ok: false, error: String(err) });
   }
