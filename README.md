@@ -81,7 +81,6 @@ On phones, a sticky bar with **Check availability / WhatsApp / Call** appears on
   - Both have full Greek support and are self-hosted.
 - **Photos.** Real photos of the car models and of Kos. See [Photo credits](#9-photo-credits).
 - **Icons.** An inline SVG sprite, with no emoji or icon fonts.
-- **Background motifs.** Each section has its own faint line-art pattern with car hire motifs (keys, steering wheels, cars, fuel pumps, road signs, planes, receipts, euro signs). The patterns are generated as SVG data URIs at build time (`src/patterns.js`) and faded with CSS masks, so text always sits on a clean area.
 - **Motion.**
   - An orchestrated hero entrance: the location pill, headline and copy rise in, the photo wipes open, the receipt card slides up, its ticks draw one by one and the price tag drops in.
   - A top-down road strip under the hero, with cars driving both ways.
@@ -95,7 +94,7 @@ On phones, a sticky bar with **Check availability / WhatsApp / Call** appears on
 Built for mobile visitors on a weak connection.
 
 - No framework and no runtime dependencies. CSS and JS are inlined, so first paint needs a single request.
-- The HTML is about 29 KB gzipped, including the inlined CSS, JS and background patterns.
+- The HTML is about 29 KB gzipped, including the inlined CSS and JS.
 - Fonts are subset (Greek and Latin) and preloaded.
 - Photos are WebP with `srcset`/`sizes`, 17-54 KB each. Below-the-fold images are lazy-loaded.
 - Measured with Chrome DevTools throttling (750 kbps, 100 ms RTT, 4× CPU slowdown, mobile viewport): **full load, photos included, in about 2.2 s**.
@@ -108,7 +107,6 @@ src/page.js             HTML template (server-side rendered at build time)
 src/styles.css          styles, mobile-first
 src/app.js              calculator, form, sticky bar, copy button (vanilla JS)
 src/icons.js            SVG icon sprite
-src/patterns.js         section background patterns (SVG data URIs)
 lib/fleet.js            fleet, prices and the "typical €8 offer" model (single source of truth)
 lib/booking.js          validation and pricing
 lib/handler.js          POST /api/request logic, shared by Vercel and the local server

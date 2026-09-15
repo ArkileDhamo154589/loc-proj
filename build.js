@@ -33,8 +33,7 @@ export async function build() {
 
   checkKeys(el, en);
 
-  const { patternsCss } = await import(pathToFileURL(join(root, 'src/patterns.js')).href + `?v=${Date.now()}`);
-  const cssText = minifyCss(css) + patternsCss();
+  const cssText = minifyCss(css);
   const pages = [
     { t: el, other: en, file: 'public/index.html' },
     { t: en, other: el, file: 'public/en/index.html' },

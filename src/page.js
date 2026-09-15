@@ -165,10 +165,6 @@ ${sprite()}
 
 <main id="main">
 <section class="hero">
-  <svg class="hero-route" viewBox="0 0 1440 760" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-    <path d="M-40 742 C 180 742, 300 690, 470 712 S 640 752, 700 716" />
-    <g class="hero-route-pin" transform="translate(712 700)"><path d="M0 -34c-11 0-19 8-19 18 0 13 19 30 19 30s19-17 19-30c0-10-8-18-19-18z"/><circle cx="0" cy="-16" r="6"/></g>
-  </svg>
   <div class="container hero-grid">
     <div class="hero-copy">
       <p class="hero-place">${icon('pin')}${t.hero.place}</p>
