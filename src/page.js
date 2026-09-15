@@ -42,7 +42,7 @@ function bill(t, lang, kind, days) {
     ? `<p class="bill-note is-ok">${icon('check')}<span>${t.calc.depositOurs}</span></p>`
     : `<p class="bill-note is-warn">${icon('alert')}<span>${fill(t.calc.deposit, { deposit: money(TYPICAL.deposit, lang) })}</span></p>`;
 
-  return `<article class="bill bill-${kind}">
+  return `<article class="bill bill-${kind} reveal">
 <header class="bill-head">
   <h3>${ours ? t.calc.oursTitle : t.calc.adTitle}</h3>
   <p>${ours ? t.calc.oursSub : t.calc.adSub}</p>
@@ -62,7 +62,7 @@ function carCard(t, lang, car) {
   const c = t.cars[car.id];
   const s = t.carsSection;
   const bags = car.bags === 1 ? s.bagOne : fill(s.bagMany, { n: car.bags });
-  return `<article class="car" data-car="${car.id}">
+  return `<article class="car reveal" data-car="${car.id}">
 <div class="car-visual">
   <img src="/img/car-${car.id}-480.webp" srcset="/img/car-${car.id}-480.webp 480w, /img/car-${car.id}-720.webp 720w" sizes="(min-width: 980px) 270px, (min-width: 560px) 45vw, 92vw" width="720" height="450" loading="lazy" decoding="async" alt="${attr(c.model)}">
   <span class="car-fleet">${fill(s.inFleet, { n: car.count })}</span>
@@ -165,6 +165,10 @@ ${sprite()}
 
 <main id="main">
 <section class="hero">
+  <svg class="hero-route" viewBox="0 0 1440 760" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <path d="M-40 742 C 180 742, 300 690, 470 712 S 640 752, 700 716" />
+    <g class="hero-route-pin" transform="translate(712 700)"><path d="M0 -34c-11 0-19 8-19 18 0 13 19 30 19 30s19-17 19-30c0-10-8-18-19-18z"/><circle cx="0" cy="-16" r="6"/></g>
+  </svg>
   <div class="container hero-grid">
     <div class="hero-copy">
       <p class="hero-place">${icon('pin')}${t.hero.place}</p>
@@ -203,14 +207,21 @@ ${sprite()}
   </div>
 </section>
 
+<div class="road" aria-hidden="true">
+  <span class="road-line"></span>
+  <span class="road-car road-car-a"><svg viewBox="0 0 64 30"><rect x="2" y="3" width="60" height="24" rx="9" fill="#FFCF33" stroke="#0F2537" stroke-width="2.5"/><rect x="38" y="6.5" width="9" height="17" rx="3" fill="#EAF3FB" stroke="#0F2537" stroke-width="2"/><rect x="11" y="7.5" width="6" height="15" rx="2.5" fill="#EAF3FB" stroke="#0F2537" stroke-width="2"/><path d="M19 9.5h17M19 20.5h17" stroke="#0F2537" stroke-width="1.5" opacity=".35"/><rect x="57" y="6" width="3" height="5" rx="1.5" fill="#FFF6D6"/><rect x="57" y="19" width="3" height="5" rx="1.5" fill="#FFF6D6"/><rect x="3.5" y="6.5" width="2.5" height="4" rx="1" fill="#E4553F"/><rect x="3.5" y="19.5" width="2.5" height="4" rx="1" fill="#E4553F"/></svg></span>
+  <span class="road-car road-car-b"><svg viewBox="0 0 64 30"><rect x="2" y="3" width="60" height="24" rx="9" fill="#2F7FD1" stroke="#0F2537" stroke-width="2.5"/><rect x="38" y="6.5" width="9" height="17" rx="3" fill="#EAF3FB" stroke="#0F2537" stroke-width="2"/><rect x="11" y="7.5" width="6" height="15" rx="2.5" fill="#EAF3FB" stroke="#0F2537" stroke-width="2"/><path d="M19 9.5h17M19 20.5h17" stroke="#0F2537" stroke-width="1.5" opacity=".35"/><rect x="57" y="6" width="3" height="5" rx="1.5" fill="#FFF6D6"/><rect x="57" y="19" width="3" height="5" rx="1.5" fill="#FFF6D6"/><rect x="3.5" y="6.5" width="2.5" height="4" rx="1" fill="#E4553F"/><rect x="3.5" y="19.5" width="2.5" height="4" rx="1" fill="#E4553F"/></svg></span>
+  <span class="road-car road-car-c"><svg viewBox="0 0 64 30"><rect x="2" y="3" width="60" height="24" rx="9" fill="#FFFFFF" stroke="#0F2537" stroke-width="2.5"/><rect x="38" y="6.5" width="9" height="17" rx="3" fill="#EAF3FB" stroke="#0F2537" stroke-width="2"/><rect x="11" y="7.5" width="6" height="15" rx="2.5" fill="#EAF3FB" stroke="#0F2537" stroke-width="2"/><path d="M19 9.5h17M19 20.5h17" stroke="#0F2537" stroke-width="1.5" opacity=".35"/><rect x="57" y="6" width="3" height="5" rx="1.5" fill="#FFF6D6"/><rect x="57" y="19" width="3" height="5" rx="1.5" fill="#FFF6D6"/><rect x="3.5" y="6.5" width="2.5" height="4" rx="1" fill="#E4553F"/><rect x="3.5" y="19.5" width="2.5" height="4" rx="1" fill="#E4553F"/></svg></span>
+</div>
+
 <section id="prices" class="section calc" data-calc>
   <div class="container">
-    <div class="section-head">
+    <div class="section-head reveal">
       <h2>${t.calc.title}</h2>
       <p>${t.calc.lead}</p>
     </div>
 
-    <div class="calc-controls">
+    <div class="calc-controls reveal">
       <label for="calc-days" class="calc-label">${icon('calendar')}${t.calc.daysLabel}</label>
       <div class="stepper">
         <button type="button" class="step-btn" data-step="-1" aria-label="${t.calc.minus}">${icon('minus')}</button>
@@ -225,7 +236,7 @@ ${sprite()}
       ${bill(t, lang, 'ours', DEFAULT_DAYS)}
     </div>
 
-    <div class="calc-result">
+    <div class="calc-result reveal">
       <p data-saving>${fill(t.calc.saving, { days: daysLabel(t, DEFAULT_DAYS), diff: `<strong>${money(typicalTotal(DEFAULT_DAYS) - mini.price * DEFAULT_DAYS, lang)}</strong>` })}</p>
       <a class="btn btn-primary btn-lg" href="#book">${t.calc.cta}</a>
     </div>
@@ -235,7 +246,7 @@ ${sprite()}
 
 <section id="cars" class="section cars">
   <div class="container">
-    <div class="section-head">
+    <div class="section-head reveal">
       <h2>${t.carsSection.title}</h2>
       <p>${t.carsSection.lead}</p>
     </div>
@@ -247,9 +258,9 @@ ${sprite()}
 
 <section class="section reasons">
   <div class="container">
-    <h2 class="section-title">${t.reasons.title}</h2>
+    <h2 class="section-title reveal">${t.reasons.title}</h2>
     <div class="reason-grid">
-      ${t.reasons.items.map((r) => `<div class="reason"><span class="reason-ico">${icon(r.icon)}</span><h3>${r.title}</h3><p>${r.text}</p></div>`).join('')}
+      ${t.reasons.items.map((r) => `<div class="reason reveal"><span class="reason-ico">${icon(r.icon)}</span><h3>${r.title}</h3><p>${r.text}</p></div>`).join('')}
     </div>
   </div>
 </section>
@@ -259,24 +270,24 @@ ${sprite()}
     <div class="reviews-intro">
       <h2>${t.reviews.title}</h2>
       <p class="rating-line"><span class="stars" aria-hidden="true">${icon('star', 'fill')}${icon('star', 'fill')}${icon('star', 'fill')}${icon('star', 'fill')}${icon('star', 'fill')}</span>${t.reviews.rating}</p>
-      <figure class="owner">
+      <figure class="owner reveal">
         <blockquote>${t.reviews.owner.text}</blockquote>
         <figcaption>${t.reviews.owner.name}</figcaption>
       </figure>
     </div>
     <div class="review-list">
-      ${t.reviews.items.map((r) => `<figure class="review"><blockquote>${r.text}</blockquote><figcaption><strong>${r.name}</strong><span>${r.meta}</span></figcaption></figure>`).join('')}
+      ${t.reviews.items.map((r) => `<figure class="review reveal"><blockquote>${r.text}</blockquote><figcaption><strong>${r.name}</strong><span>${r.meta}</span></figcaption></figure>`).join('')}
     </div>
   </div>
 </section>
 
 <section class="section questions">
   <div class="container">
-    <div class="section-head">
+    <div class="section-head reveal">
       <h2>${t.questions.title}</h2>
       <p>${t.questions.lead}</p>
     </div>
-    <div class="qa">
+    <div class="qa reveal">
       <div class="qa-row qa-headrow" aria-hidden="true"><span>${t.questions.colQ}</span><span>${t.questions.colA}</span></div>
       <ul class="qa-list">
         ${t.questions.items.map((q) => `<li class="qa-row"><span class="qa-q">${q.q}</span><span class="qa-a">${icon('check')}${q.a}</span></li>`).join('')}
@@ -292,7 +303,7 @@ ${sprite()}
     <img src="/img/kefalos-640.webp" width="640" height="480" loading="lazy" decoding="async" alt="${attr(t.photos.kefalos)}">
   </picture>
   <div class="container band-inner">
-    <div class="band-card">
+    <div class="band-card reveal">
       <p class="band-title">${t.band.title}</p>
       <p>${t.band.text}</p>
     </div>
@@ -313,7 +324,7 @@ ${sprite()}
       </div>
     </div>
 
-    <div class="form-card">
+    <div class="form-card reveal">
       <form id="booking-form" novalidate data-form>
         <div class="hp" aria-hidden="true">
           <label for="f-website">Website</label>
@@ -399,7 +410,7 @@ ${sprite()}
 <section id="faq" class="section faq">
   <div class="container faq-grid">
     <h2>${t.faq.title}</h2>
-    <div class="faq-list">
+    <div class="faq-list reveal">
       ${t.faq.items.map((f) => `<details class="faq-item"><summary><span>${f.q}</span>${icon('chevron')}</summary><div class="faq-a"><p>${f.a}</p></div></details>`).join('')}
     </div>
   </div>

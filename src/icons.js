@@ -1,6 +1,6 @@
 // Inline SVG sprite: every icon is a 24px stroke symbol, referenced with <use>.
 
-const PATHS = {
+export const PATHS = {
   shield: '<path d="M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-4.5"/>',
   users: '<circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5"/><path d="M16 4.6a3 3 0 0 1 0 6"/><path d="M18 14.8c2 .6 3 2.4 3 5.2"/>',
   plane: '<path d="M12 2.5c.9 0 1.5.8 1.5 1.8v5.2l7.5 4.5v2l-7.5-2.3V19l2.5 1.8v1.7L12 21.6l-4 .9v-1.7l2.5-1.8v-5.3L3 16v-2l7.5-4.5V4.3c0-1 .6-1.8 1.5-1.8z"/>',
